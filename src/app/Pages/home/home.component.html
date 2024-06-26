@@ -1,0 +1,36 @@
+<div class="Pokedex--container">
+  <div class="Pokedex--box">
+    @for (pok of pokemons; track pok.id; let i = $index) {
+    <div class="card" (mouseover)="pokeEnter(i)" (mouseout)="pokeLeave()">
+      <div
+        class="img-cont-cont"
+        [ngStyle]="{
+        height: i === index ? '70%' : '50%',
+      }"
+      >
+        <div
+          class="img-cont"
+          [ngStyle]="{
+            background: pok.gradientColor,
+            height: i === index ? '120%' : '100%',
+          }"
+        ></div>
+      </div>
+      <div class="bot-cont">
+        <img
+          class="image"
+          [ngClass]="{ anim: i === index }"
+          [src]="i === index ? pok.anim : pok.sprite"
+          alt=""
+        />
+        <div class="info">
+          <h1 class="name">{{ pok.name }}</h1>
+          <p class="type" [ngStyle]="{ 'background-color': pok.primaryColor }">
+            {{ pok.type }}
+          </p>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>
