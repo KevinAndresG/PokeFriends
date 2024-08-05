@@ -11,8 +11,6 @@ import { CommonModule } from '@angular/common';
 })
 export class HomeComponent implements OnInit {
   constructor(private pokedexService: PokedexService) {}
-
-  pokemonsAmount = 100;
   index = -1;
   gradientColors = {
     grass:
@@ -72,131 +70,172 @@ export class HomeComponent implements OnInit {
     stellar: 'rgb(137, 90, 227)',
     unknown: 'rgba(0, 0, 0, 0)',
   };
-  pokemons: {
-    id: string;
-    name: string;
-    sprite: string;
-    anim: string;
-    type: string;
-    primaryColor: string;
-    gradientColor: string;
-  }[] = [];
+  pokemons: any = [];
+
   ngOnInit(): void {
     this.getPokemons();
   }
-  async getPokemons() {
-    for (let i = 1; i <= this.pokemonsAmount; i++) {
-      let pokemon = {
-        id: '',
-        name: '',
-        sprite: '',
-        anim: '',
-        type: '',
-        primaryColor: '',
-        gradientColor: '',
-      };
-      await this.pokedexService.getPokemonById(i).then((res) => {
-        if (res.id < 10) {
-          pokemon.id = '#00' + res.id;
-        } else if (res.id < 100) {
-          pokemon.id = '#0' + res.id;
-        } else {
-          pokemon.id = '#' + res.id;
-        }
-        pokemon.name = res.name;
-        pokemon.sprite = res.sprites.front_default;
-        pokemon.anim = res.sprites.other.showdown.front_default
-          ? res.sprites.other.showdown.front_default
-          : res.sprites.front_default;
-        pokemon.type = res.types[0].type.name;
 
-        switch (res.types[0].type.name) {
-          case 'grass':
-            pokemon.primaryColor = this.primaryColors.grass;
-            pokemon.gradientColor = this.gradientColors.grass;
-            break;
-          case 'fire':
-            pokemon.primaryColor = this.primaryColors.fire;
-            pokemon.gradientColor = this.gradientColors.fire;
-            break;
-          case 'water':
-            pokemon.primaryColor = this.primaryColors.water;
-            pokemon.gradientColor = this.gradientColors.water;
-            break;
-          case 'bug':
-            pokemon.primaryColor = this.primaryColors.bug;
-            pokemon.gradientColor = this.gradientColors.bug;
-            break;
-          case 'poison':
-            pokemon.primaryColor = this.primaryColors.poison;
-            pokemon.gradientColor = this.gradientColors.poison;
-            break;
-          case 'flying':
-            pokemon.primaryColor = this.primaryColors.flying;
-            pokemon.gradientColor = this.gradientColors.flying;
-            break;
-          case 'normal':
-            pokemon.primaryColor = this.primaryColors.normal;
-            pokemon.gradientColor = this.gradientColors.normal;
-            break;
-          case 'electric':
-            pokemon.primaryColor = this.primaryColors.electric;
-            pokemon.gradientColor = this.gradientColors.electric;
-            break;
-          case 'ground':
-            pokemon.primaryColor = this.primaryColors.ground;
-            pokemon.gradientColor = this.gradientColors.ground;
-            break;
-          case 'fairy':
-            pokemon.primaryColor = this.primaryColors.fairy;
-            pokemon.gradientColor = this.gradientColors.fairy;
-            break;
-          case 'rock':
-            pokemon.primaryColor = this.primaryColors.rock;
-            pokemon.gradientColor = this.gradientColors.rock;
-            break;
-          case 'dragon':
-            pokemon.primaryColor = this.primaryColors.dragon;
-            pokemon.gradientColor = this.gradientColors.dragon;
-            break;
-          case 'psychic':
-            pokemon.primaryColor = this.primaryColors.psychic;
-            pokemon.gradientColor = this.gradientColors.psychic;
-            break;
-          case 'fighting':
-            pokemon.primaryColor = this.primaryColors.fighting;
-            pokemon.gradientColor = this.gradientColors.fighting;
-            break;
-          case 'ghost':
-            pokemon.primaryColor = this.primaryColors.ghost;
-            pokemon.gradientColor = this.gradientColors.ghost;
-            break;
-          case 'ice':
-            pokemon.primaryColor = this.primaryColors.ice;
-            pokemon.gradientColor = this.gradientColors.ice;
-            break;
-          case 'dark':
-            pokemon.primaryColor = this.primaryColors.dark;
-            pokemon.gradientColor = this.gradientColors.dark;
-            break;
-          case 'steel':
-            pokemon.primaryColor = this.primaryColors.steel;
-            pokemon.gradientColor = this.gradientColors.steel;
-            break;
-          case 'stellar':
-            pokemon.primaryColor = this.primaryColors.stellar;
-            pokemon.gradientColor = this.gradientColors.stellar;
-            break;
-          case 'unknown':
-            pokemon.primaryColor = this.primaryColors.unknown;
-            pokemon.gradientColor = this.gradientColors.unknown;
-            break;
-          default:
-            break;
-        }
-        this.pokemons.push(pokemon);
-      });
-    }
+  async getPokemons() {
+    this.pokedexService.getPokemons(110).then(async (res) => {
+      for (let i = 0; i < res.results.length; i++) {
+        await this.pokedexService.getPokemonById(i + 1).then((response) => {
+          let pokemon = {};
+          switch (response.types[0].type.name) {
+            case 'grass':
+              pokemon = {
+                ...response,
+                primaryColor: this.primaryColors.grass,
+                gradientColor: this.gradientColors.grass,
+              };
+              break;
+            case 'fire':
+              pokemon = {
+                ...response,
+                primaryColor: this.primaryColors.fire,
+                gradientColor: this.gradientColors.fire,
+              };
+              break;
+            case 'water':
+              pokemon = {
+                ...response,
+                primaryColor: this.primaryColors.water,
+                gradientColor: this.gradientColors.water,
+              };
+              break;
+            case 'bug':
+              pokemon = {
+                ...response,
+                primaryColor: this.primaryColors.bug,
+                gradientColor: this.gradientColors.bug,
+              };
+              break;
+            case 'poison':
+              pokemon = {
+                ...response,
+                primaryColor: this.primaryColors.poison,
+                gradientColor: this.gradientColors.poison,
+              };
+              break;
+            case 'flying':
+              pokemon = {
+                ...response,
+                primaryColor: this.primaryColors.flying,
+                gradientColor: this.gradientColors.flying,
+              };
+              break;
+            case 'normal':
+              pokemon = {
+                ...response,
+                primaryColor: this.primaryColors.normal,
+                gradientColor: this.gradientColors.normal,
+              };
+              break;
+            case 'electric':
+              pokemon = {
+                ...response,
+                primaryColor: this.primaryColors.electric,
+                gradientColor: this.gradientColors.electric,
+              };
+              break;
+            case 'ground':
+              pokemon = {
+                ...response,
+                primaryColor: this.primaryColors.ground,
+                gradientColor: this.gradientColors.ground,
+              };
+              break;
+            case 'fairy':
+              pokemon = {
+                ...response,
+                primaryColor: this.primaryColors.fairy,
+                gradientColor: this.gradientColors.fairy,
+              };
+              break;
+            case 'rock':
+              pokemon = {
+                ...response,
+                primaryColor: this.primaryColors.rock,
+                gradientColor: this.gradientColors.rock,
+              };
+              break;
+            case 'dragon':
+              pokemon = {
+                ...response,
+                primaryColor: this.primaryColors.dragon,
+                gradientColor: this.gradientColors.dragon,
+              };
+              break;
+            case 'psychic':
+              pokemon = {
+                ...response,
+                primaryColor: this.primaryColors.psychic,
+                gradientColor: this.gradientColors.psychic,
+              };
+              break;
+            case 'fighting':
+              pokemon = {
+                ...response,
+                primaryColor: this.primaryColors.fighting,
+                gradientColor: this.gradientColors.fighting,
+              };
+              break;
+            case 'ghost':
+              pokemon = {
+                ...response,
+                primaryColor: this.primaryColors.ghost,
+                gradientColor: this.gradientColors.ghost,
+              };
+              break;
+            case 'ice':
+              pokemon = {
+                ...response,
+                primaryColor: this.primaryColors.ice,
+                gradientColor: this.gradientColors.ice,
+              };
+              break;
+            case 'dark':
+              pokemon = {
+                ...response,
+                primaryColor: this.primaryColors.dark,
+                gradientColor: this.gradientColors.dark,
+              };
+              break;
+            case 'steel':
+              pokemon = {
+                ...response,
+                primaryColor: this.primaryColors.steel,
+                gradientColor: this.gradientColors.steel,
+              };
+              break;
+            case 'stellar':
+              pokemon = {
+                ...response,
+                primaryColor: this.primaryColors.stellar,
+                gradientColor: this.gradientColors.stellar,
+              };
+              break;
+            case 'unknown':
+              pokemon = {
+                ...response,
+                primaryColor: this.primaryColors.unknown,
+                gradientColor: this.gradientColors.unknown,
+              };
+              break;
+            default:
+              break;
+          }
+          pokemon = {
+            ...pokemon,
+            sprite: response.sprites.front_default,
+            anim: response.sprites.other.showdown.front_default
+              ? response.sprites.other.showdown.front_default
+              : response.sprites.front_default,
+          };
+          this.pokemons.push(pokemon);
+        });
+      }
+    });
   }
   pokeEnter(i: number) {
     this.index = i;

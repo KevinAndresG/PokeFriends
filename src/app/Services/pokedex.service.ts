@@ -10,8 +10,10 @@ export class PokedexService {
     const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
     return response.data;
   }
-  async getPokemons() {
-    const response = await axios.get(`https://pokeapi.co/api/v2/pokemon`);
+  async getPokemons(limit = 10000) {
+    const response = await axios.get(
+      `https://pokeapi.co/api/v2/pokemon?limit=${limit}`
+    );
     return response.data;
   }
 }
