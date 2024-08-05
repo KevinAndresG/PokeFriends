@@ -1,0 +1,158 @@
+.card {
+  height: 400px;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  position: relative;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+  .img-cont-cont {
+    overflow: hidden;
+    width: 100%;
+    height: 50%;
+    position: absolute;
+    border-radius: 10px;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: height 0.2s ease;
+
+    .img-cont {
+      width: 150%;
+      height: 100%;
+      border-radius: 50%;
+      position: absolute;
+      top: -30%;
+      box-shadow: 0 0 4px rgb(0, 0, 0);
+      transition: height 0.2s ease;
+    }
+  }
+
+  .hp {
+    position: absolute;
+    width: 70px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 5px;
+    background-color: #fff;
+    border-radius: 0 10px 0 10px;
+    top: 0px;
+    right: 0px;
+    font-size: 18px;
+    box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.8);
+
+    p {
+      font-weight: lighter;
+      font-size: 14px;
+    }
+  }
+
+  .bot-cont {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 30%;
+    gap: 30px;
+    .image {
+      position: relative;
+      image-rendering: pixelated;
+      z-index: 10;
+      scale: 2;
+      min-height: 100px;
+      max-height: 100px;
+
+      &.anim {
+        scale: 2;
+        filter: saturate(200%);
+        animation: pokeLevitate 0.8s linear alternate-reverse infinite;
+        transform: translateY(-30px);
+      }
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      .id {
+        margin: 0;
+      }
+
+      .name {
+        margin: 0;
+        font-size: 20px;
+      }
+
+      .type {
+        margin: 0;
+        padding: 3px 15px;
+        border-radius: 10px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        font-size: 14px;
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+      }
+    }
+  }
+
+  .stats {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    position: absolute;
+    bottom: 25px;
+    font-size: 15px;
+    padding: 0;
+    margin: 0;
+
+    p,
+    h3 {
+      margin: 0;
+      padding: 0;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .value {
+        font-weight: bold;
+        font-size: 16px;
+      }
+
+      .text {
+        font-weight: lighter;
+        font-size: 14px;
+        letter-spacing: 1px;
+      }
+    }
+  }
+
+  &:hover {
+    z-index: 100;
+    box-shadow: 0 0 2px rgb(0, 0, 0);
+    transform: translateY(-20px);
+  }
+}
+@keyframes pokeLevitate {
+  0% {
+    transform: translateY(-30px);
+  }
+  100% {
+    transform: translateY(-40px);
+  }
+}

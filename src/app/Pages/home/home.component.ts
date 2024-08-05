@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { PokedexService } from '../../Services/pokedex.service';
+import { PokedexService } from '../../core/Services/pokedex.service';
 import { CommonModule } from '@angular/common';
+import { CardComponent } from '../../core/shared/components/card/card.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
   constructor(private pokedexService: PokedexService) {}
-  index = -1;
   gradientColors = {
     grass:
       'linear-gradient( to right, rgb(152, 215, 165) 40%, rgb(120, 255, 147) 100% )',
@@ -236,11 +236,5 @@ export class HomeComponent implements OnInit {
         });
       }
     });
-  }
-  pokeEnter(i: number) {
-    this.index = i;
-  }
-  pokeLeave() {
-    this.index = -1;
   }
 }
